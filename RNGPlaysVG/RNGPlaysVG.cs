@@ -1,6 +1,9 @@
 ﻿/*
  * RNGPlaysVG.cs 
  * Author: ipavl <https://github.com/ipavl/RNGPlaysVG>
+ * Date: February 17, 2014
+ * 
+ * This program uses AutoItX3.dll from AutoItScript <http://www.autoitscript.com/site/>
  */
 
 using System;
@@ -29,11 +32,11 @@ namespace RNGPlaysVG
     {
         [DllImport("USER32.DLL")]
         static extern int SetForegroundWindow(IntPtr ptr);
-        enum KeyBank { UP, DOWN, LEFT, RIGHT, A, B, START, SELECT }
+        enum KeyBank { UP, DOWN, LEFT, RIGHT, A, B, START, SELECT, COUNT } // COUNT should always be at the end; it is not a key
 
         static void Main(string[] args)
         {
-            Console.Title = "RNGPlaysVG <https://github.com/ipavl/RNGPlaysVG>";
+            Console.Title = "RNGPlaysVG v0.1 -- https://github.com/ipavl/RNGPlaysVG";
 
             int inputDelay = 0;
             Process proc = null;
@@ -48,13 +51,14 @@ namespace RNGPlaysVG
                 try
                 {
                     proc = Process.GetProcessesByName(procName).FirstOrDefault();
-                    Console.Title = "RNGPlaysVG (attached to " + proc.ProcessName + " (" + proc.Id + "))";
+                    Console.Title = "RNGPlaysVG (attached to " + proc.ProcessName + " [" + proc.Id + "])";
                     Console.WriteLine("Successfully attached to process " + proc.ProcessName + " (" + proc.Id + ").");
                     attachedToProcess = true;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Could not attach to process " + procName + ": " + ex.Message);
+                    Console.WriteLine("Could not attach to process " + procName + ": make sure the process exists");
+                    Debug.Print(ex.Message);
                 }
             }
 
@@ -77,7 +81,7 @@ namespace RNGPlaysVG
                 while (proc != null)
                 {
                     var rng = new Random();
-                    int key = rng.Next(8);
+                    int key = rng.Next((int) KeyBank.COUNT - 1);
 
                     if (key == (int)KeyBank.UP)
                     {
@@ -127,12 +131,12 @@ namespace RNGPlaysVG
                         }
                         //SendKeys.SendWait("{ENTER}");
                     }
-                    /*else if (key == (int)KeyBank.SELECT)
+                    else if (key == (int)KeyBank.SELECT)
                     {
                         Console.WriteLine("rng=" + key + " => SELECT");
                         AutoItX3Declarations.AU3_Send("{BACKSPACE}", 0);
                         //SendKeys.SendWait("{BKSP}");
-                    }*/
+                    }
 
                     AutoItX3Declarations.AU3_Sleep(inputDelay);
                 }
