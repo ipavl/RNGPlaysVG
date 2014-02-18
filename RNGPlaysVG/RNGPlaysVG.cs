@@ -73,6 +73,7 @@ namespace RNGPlaysVG
                 inputDelay = 100;
             }
 
+            // We have a process so we can bring it to the foreground and send input keys to it
             if (proc != null)
             {
                 IntPtr handle = proc.MainWindowHandle;
