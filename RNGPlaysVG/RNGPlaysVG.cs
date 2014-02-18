@@ -19,10 +19,6 @@ namespace RNGPlaysVG
         [DllImport("AutoItX3.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static public extern void AU3_Send([MarshalAs(UnmanagedType.LPWStr)] string SendText, int Mode);
 
-        //AU3_API long WINAPI AU3_Shutdown(long nFlags);
-        [DllImport("AutoItX3.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static public extern int AU3_Shutdown(int Flags);
-
         //AU3_API void WINAPI AU3_Sleep(long nMilliseconds);
         [DllImport("AutoItX3.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static public extern void AU3_Sleep(int Milliseconds);
@@ -148,7 +144,6 @@ namespace RNGPlaysVG
             }
 
             Console.ReadLine();
-            AutoItX3Declarations.AU3_Shutdown(0);
         }
     }
 }
