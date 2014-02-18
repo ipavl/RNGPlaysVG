@@ -81,7 +81,7 @@ namespace RNGPlaysVG
                 while (proc != null)
                 {
                     var rng = new Random();
-                    int key = rng.Next((int) KeyBank.COUNT - 1);
+                    int key = rng.Next((int) KeyBank.COUNT);
 
                     if (key == (int)KeyBank.UP)
                     {
@@ -136,6 +136,10 @@ namespace RNGPlaysVG
                         Console.WriteLine("rng=" + key + " => SELECT");
                         AutoItX3Declarations.AU3_Send("{BACKSPACE}", 0);
                         //SendKeys.SendWait("{BKSP}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("rng=" + key + " => undefined");
                     }
 
                     AutoItX3Declarations.AU3_Sleep(inputDelay);
