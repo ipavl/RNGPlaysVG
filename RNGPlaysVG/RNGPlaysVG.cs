@@ -75,7 +75,7 @@ namespace RNGPlaysVG
                 IntPtr handle = proc.MainWindowHandle;
                 SetForegroundWindow(handle);
 
-                while (proc != null)
+                while (!proc.HasExited)
                 {
                     var rng = new Random();
                     int key = rng.Next((int) KeyBank.COUNT);
@@ -143,7 +143,8 @@ namespace RNGPlaysVG
                 }
             }
 
-            Console.ReadLine();
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
         }
     }
 }
